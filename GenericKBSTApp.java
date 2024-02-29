@@ -46,7 +46,7 @@ public class GenericKBSTApp{
        }
        else if (input.equals("3")){
        String term=JOptionPane.showInputDialog(null,"Enter the term to search: ");
-       node.find(term);
+       JOptionPane.showMessageDialog(null,node.find(term));
        }
 
        else if (input.equals("4")){
