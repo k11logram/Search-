@@ -24,15 +24,14 @@ public class GenericKBSTApp{
       
        Item fact = new Item(item,statement,confidence);
        node.insert(fact);
-       
        }
        read.close();
        }
        catch(IOException e){
-        e.printStackTrace();
+       // e.printStackTrace();
         JOptionPane.showMessageDialog(null, "please enter a proper file name or enter proper location of the file");}       
-
-        JOptionPane.showMessageDialog(null,"Knowledge base loaded successfully.");
+      if(node != null){
+        JOptionPane.showMessageDialog(null,"Knowledge base loaded successfully.");}
          }
          
        else if(input.equals("2")){
@@ -45,22 +44,29 @@ public class GenericKBSTApp{
        
        }
        else if (input.equals("3")){
-       String term=JOptionPane.showInputDialog(null,"Enter the term to search: ");
-       JOptionPane.showMessageDialog(null,node.find(term));
+       String term=JOptionPane.showInputDialog(null,"Enter the term to search: ")+"\t";
+       Term newNode=node.find(term);
+       JOptionPane.showMessageDialog(null,newNode.term.getItem().trim()+" "+newNode.term.getStatement().trim()+" (Confidence score: "+Double.toString(newNode.term.getConfidence())+")");
        }
 
        else if (input.equals("4")){
-       String term=JOptionPane.showInputDialog(null,"Enter the term to search: ");
-       String statement=JOptionPane.showInputDialog(null,"Enter the statement to search for: ");
+       String term=JOptionPane.showInputDialog(null,"Enter the term to search: ")+"\t";
+       String statement=JOptionPane.showInputDialog(null,"Enter the statement to search for: ")+"\t";
        Term newNode=node.find(term);
-       if(newNode.term.getStatement().equals(statement)){
+       if(newNode.term.getStatement().equals(statement) && newNode != null){
          JOptionPane.showMessageDialog(null, "The statement was found and has a confidence score of "+newNode.term.getConfidence());}
        else{
          JOptionPane.showMessageDialog(null,"Term and statement cannot be found:");}
        }
-      else{
-        break;
+      else if (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5"))){
+        JOptionPane.showMessageDialog(null,"choose one of the five options displayed to you");
         }
+        
+       else if(input==null){
+        JOptionPane.showMessageDialog(null,"You neeed to choose option 5 to exit");}
+        else{
+        break;
+       }
        }
        
         while(!input.equals("5"));
