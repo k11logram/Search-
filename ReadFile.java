@@ -1,19 +1,28 @@
+//DBXKAG003
+//Dube Kagiso
+//25 February 2024
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
 import java.io.IOException;
-
+import javax.swing.JOptionPane;
+/* 
+ The class reads a file and stores all the generics truths in an array
+ the class pre sets the size of the array
+ the class allows the user to search for a fact or add a new fact.
+ */
 public class ReadFile{
  public int countline=0;
- //public int count=;
  public String file;
  public Item[] sentences = new Item[2000000];
  
  public ReadFile(String file){
   this.file=file;
   }
-  
+ //enters the generic truths are added into the array 
  public void setSentences(String file){         
     try{
       BufferedReader read = new BufferedReader(new FileReader(file));
@@ -26,7 +35,7 @@ public class ReadFile{
         
       
        Item fact = new Item(item,statement,confidence);
-                  
+ //Add generic truth to array                  
          sentences[countline]=fact;
          countline++;
         }
@@ -34,41 +43,43 @@ public class ReadFile{
         }
         
     catch (IOException e){
-       e.printStackTrace();
-     }
-    }
-    public String search(String item){
+         JOptionPane.showMessageDialog(null,"Please enter proper file name or file location");}
+
+      }
+ // This method allows user to search for a generic truth using the term   
+ public String search(String item){
    for(int i=0;i<countline;i++){
      if(sentences[i].getItem().equals(item+"\t")){
       return ""+"Statement found: "+sentences[i].getStatement().trim()+" (Confidence score: "+Double.toString(sentences[i].getConfidence())+")";
       }
     }
-    return null;
+    return "term doesn't exist";
     }
-    
-public String search(String item, String statement){
+  //This method allows to confirm if generic truth exists by using it's term and the statement  
+ public String search(String item, String statement){
    for( int i=0;i<countline;i++){
-     if((sentences[i].getItem().equals(item+"\t")) &&(sentences[i].getStatement().equals(statement+"\t"))){
-      return "The statement was found and has a confidence score of"+sentences[i].getConfidence();
+     if((sentences[i].getItem().trim().equals(item)) &&(sentences[i].getStatement().trim().equals(statement))){
+      return "The statement was found and has a confidence score of "+sentences[i].getConfidence();
       }
     }
     return "Term and statement cannot be found:" ;
     }
-  
-public String Update_database(String item, String statement, double confidence){
+ //Checks if the is generic truth that has the term that the user has entered if not it adds it to the array 
+ public String Update_database(String item, String statement, double confidence){
      for(int i=0;i<countline;i++){
-     if(sentences[i].getItem().equals(item+"\t")){
-      if(confidence>sentences[i].getConfidence()){
+     if(sentences[i].getItem().trim().equals(item)){
+      if(confidence>=sentences[i].getConfidence()){
         sentences[i].setStatement(statement); sentences[i].setConfidence(confidence);
-        return "Statement for term "+sentences[i].getItem()+" has been updated.";
+        return "Statement for term "+sentences[i].getItem().trim()+" has been updated.";
       }
+      return "Confidence score below the original average score.";
       
     }
-    else{
-        sentences[countline]=new Item(item,statement,confidence);
-        }
+     sentences[countline]=new Item(item+"\t",statement+"\t",confidence);
+     countline++;
+           }
     
-    }
+    
     return "Statement has been added to database.";
    }
    }

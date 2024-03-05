@@ -1,14 +1,18 @@
 //DBXKAG003
 //Dube Kagiso
+// Hussein Suleman
 // 26 February 2024
 
+/*The class creates a binary search tree
+  It allows the user to insert a generic truth , search for a generic truth or update a already existing generic truth
+  */
 public class BST{
   public static Term root;
-  
+  // define the root node which is the base of our tree
    public BST(){
      root=null;
      }
-     
+   //search for a generic truth using the term only  
    public Term find(String term){
      if(root==null){
         return null;
@@ -23,14 +27,15 @@ public class BST{
      if(comparison==0){
        return node;
        }
-       
+    //if the term of the generic truth is less than the node it is being compared to(alphabetically)   
     else if(comparison<0){
       if(node.left==null){
         return null;
         }
       return find(term,node.left);
       }
-      
+       //if the term of the generic truth is greater than the node it is being compared to(alphabetically)   
+
     else{
       if(node.right==null){
         return null;
@@ -38,7 +43,7 @@ public class BST{
       return find(term,node.right);
       }
      }
-     
+ //insert the generic truth to the tree    
  public void insert(Item term){
     if (root==null){
        root=new Term(term,null,null);
@@ -50,7 +55,9 @@ public class BST{
      
  public void insert(Item item,Term root){
     int compare =item.getItem().compareTo(root.term.getItem());
-    if(compare<0){
+    
+     //if the term of the generic truth is less than the node it is being compared to(alphabetically) add to the left  
+    if(compare<0){ 
         if(root.left==null){
          root.left=new Term(item,null,null);
          }
@@ -58,7 +65,9 @@ public class BST{
            insert(item,root.left);
            }
          }
-      else{
+      //if the term of the generic truth is less than the node it is being compared to(alphabetically) add to the right  
+    
+    else{
          if(root.right==null){
             root.right=new Term(item);
             }
@@ -68,50 +77,34 @@ public class BST{
          }
        }
        
-//  public void delete ( String d )
-//  {
-//  root = delete (d, root);
-//  }
-//  
-//  public void delete(String term, Term node){
-//    if (node==null){
-//     return null;
-//     }
-//     
-//      int cmp = term.compareTo (node.term.getItem());
-//     if (cmp < 0){
-//     node.left = delete (term, node.left);
-//     }
-//     else if (cmp > 0){
-//     node.right = delete (term, node.right);
-//     }
-//     else if (node.left != null && node.right != null ){
-//       
-//        }
-//        }
+       /* replace an existing generic truth with a new one if the confidence score of the new one is greater than the previous
+       do nothing if the score is not greater
+       if the term doesn't exist add it to the tree
+       */
+     public void Replace(Item term){
+     if(root==null){
+      insert(term);
+      }
+     Replace(term,root);
+     }
        
    public void Replace(Item term, Term node){
-     int comparison = term.getItem().compareTo(node.term.getItem());
-     if(comparison==0){
-     if(term.getConfidence()>node.term.getConfidence()){
-       node=new Term(term,node.left,node.right);}
-       
+//   while(node != null){
+//     int comparison = term.getItem().compareTo(node.term.getItem());
+         
+     if(find(term.getItem()) != null){
+     if(term.getConfidence()>=node.term.getConfidence()){
+       node.term.setStatement(term.getStatement());
+       node.term.setConfidence(term.getConfidence());
+       System.out.println("Statement for term "+term.getItem()+" has been updated.");
+//       break;
        }
-       
-    else if(comparison<0){
-      if(node.left==null){
-         insert(term);
-        }
-      Replace(term,node.left);
-      }
-      
-    else {
-      if(node.right==null){
-        insert(term);
-        }
-      Replace(term,node.right);
-      }
+       System.out.println("Confidence score below the original confidence score");
      }
+      
+     insert(term);
+     System.out.println("Statement has been added to database.");
+    }
     }
 
 
