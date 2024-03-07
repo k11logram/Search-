@@ -117,8 +117,8 @@ public class GenericKbBSTApp{
           double confidence = Double.parseDouble(confidence_level);   
            
        Item item = new Item(term,statement,confidence);
-       node.Replace(item);
-       JOptionPane.showMessageDialog(frame,"Statement has been added to database.");
+       
+       JOptionPane.showMessageDialog(frame,node.Replace(item));
        
        }
        else if (input.equals("3") && node.root !=null){

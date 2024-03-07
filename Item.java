@@ -1,7 +1,7 @@
 public class Item{
-   public String item;
-   public String statement;
-   public double confidence;
+   private String item;
+   private String statement;
+   private double confidence;
    
    public Item(String item, String statement, double confidence){
      this.item=item;

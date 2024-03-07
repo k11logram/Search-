@@ -81,29 +81,27 @@ public class BST{
        do nothing if the score is not greater
        if the term doesn't exist add it to the tree
        */
-     public void Replace(Item term){
+     public String Replace(Item term){
      if(root==null){
       insert(term);
       }
-     Replace(term,root);
+    return Replace(term,root);
      }
        
-   public void Replace(Item term, Term node){
-//   while(node != null){
-//     int comparison = term.getItem().compareTo(node.term.getItem());
+   public String Replace(Item term, Term node){
          
      if(find(term.getItem()) != null){
-     if(term.getConfidence()>=node.term.getConfidence()){
-       node.term.setStatement(term.getStatement());
-       node.term.setConfidence(term.getConfidence());
-       System.out.println("Statement for term "+term.getItem()+" has been updated.");
-//       break;
+         Term newNode = find(term.getItem());
+        if(term.getConfidence()>=newNode.term.getConfidence()){
+           newNode.term.setStatement(term.getStatement());
+           newNode.term.setConfidence(term.getConfidence());
+           return "Statement for term "+term.getItem()+" has been updated.";
        }
-       System.out.println("Confidence score below the original confidence score");
+       return "Confidence score below the original confidence score";
      }
       
      insert(term);
-     System.out.println("Statement has been added to database.");
+     return "Statement has been added to database.";
     }
     }
 
