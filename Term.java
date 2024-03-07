@@ -1,7 +1,8 @@
-//Dube Kagiso
-//Hussein Suleman
-//DBXKAG003
-//26 February 2023
+/*Dube Kagiso
+Hussein Suleman
+DBXKAG003
+26 February 2023
+*/
 
 public class Term{
       Item term;

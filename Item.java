@@ -1,3 +1,9 @@
+/*Dube Kagiso
+  DBXKAG003
+  07 March 2024
+  This class sepatates the generic truth into separate components.
+  */
+
 public class Item{
    private String item;
    private String statement;

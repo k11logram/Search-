@@ -1,6 +1,7 @@
 /*DBXKAG003
   Dube Kagiso
   28 February 2024
+  This application is the main class it deals with the front end of the program. 
   */
 
 import java.util.Scanner;
